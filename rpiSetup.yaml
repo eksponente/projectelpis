@@ -1,6 +1,5 @@
 ---
-- hosts: rpi
-  remote_user: pi
+- hosts: all
   tasks:
   - name: Install hostapd
     apt:
