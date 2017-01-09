@@ -1,0 +1,71 @@
+---
+- hosts: rpi
+  remote_user: pi
+  tasks:
+  - name: Install hostapd
+    apt:
+        name: hostapd
+        state: latest
+        become: true
+  - lineinfile:
+        dest: /etc/dhcpcd.conf
+        regexp: 'denyinterfaces wlan0'
+        line: 'denyinterfaces wlan0'
+        become: true
+  - blockinfile:
+      dest: /etc/network/interfaces
+      become: true
+      block: |
+        iface wlan0 inet static
+            address 10.10.0.1
+            netmask 255.255.255.0
+  - service:
+      name: dhcpcd
+      state: restarted
+      become: true
+  - command: ifdown wlan0
+    become: true
+  - command: ifup wlan0
+    become: true
+  - name: ensure file exists
+    copy:
+      content: ""
+      dest: /etc/hostapd/hostapd.conf
+      force: no
+      group: sys
+      owner: root
+      mode: 0555
+  - blockinfile:
+      dest: /etc/network/interfaces
+      become: true
+      block: |
+        interface=wlan0
+        driver=nl80211
+        ssid=Elpis
+        channel=6
+        wmm_enabled=1
+        wpa=1
+        wpa_passphrase=projectelpis
+        wpa_key_mgmt=WPA-PSK
+        wpa_pairwise=TKIP
+        rsn_pairwise=CCMP
+        auth_algs=1
+        macaddr_acl=0
+  - name: ensure file exists
+    copy:
+      content: ""
+      dest: /etc/init.d/elpis
+      force: no
+      group: sys
+      owner: root
+      mode: 0555
+  - blockinfile:
+      dest:  /etc/init.d/elpis
+      become: true
+      block: |
+        #!/bin/sh
+        hostapd -B /etc/hostapd/hostapd.conf
+  - command: update-rc.d hostapd defaults
+    become: true
+  - command: reboot
+    become: true
