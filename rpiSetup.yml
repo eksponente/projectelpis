@@ -1,6 +1,6 @@
 ---
 -
-  hosts: all
+  hosts: local
   tasks:
     -
       shell: "echo \"labas\""

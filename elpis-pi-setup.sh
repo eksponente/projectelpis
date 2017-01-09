@@ -1,7 +1,9 @@
 #!/bin/bash
-sudo apt install python-pip -Y
-sudo apt-get install build-essentials -Y
-sudo apt-get install libssl-dev -Y
-sudo apt-get install python-dev -Y
+sudo apt install -y python-pip
+sudo apt-get install -y build-essentials
+sudo apt-get install -y libssl-dev
+sudo apt-get install -y python-dev
+sudo apt-get install -y ansible
 sudo pip install ansible
 sudo pip install markupsafe
+
