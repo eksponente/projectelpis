@@ -13,8 +13,8 @@
           line: 'denyinterfaces wlan0'
         become: true
       - blockinfile:
-          dest: /etc/network/interfaces
         become: true
+          dest: /etc/network/interfaces
           block: |
             iface wlan0 inet static
                 address 10.10.0.1
