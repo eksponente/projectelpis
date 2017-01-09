@@ -12,7 +12,7 @@
         become: true
       - blockinfile:
           dest: /etc/network/interfaces
-          block: |4
+          block: |
             iface wlan0 inet static
                 address 10.10.0.1
                 netmask 255.255.255.0
