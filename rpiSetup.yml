@@ -58,11 +58,11 @@
           owner: root
           mode: 0555
       - blockinfile:
-        become: true
           dest:  /etc/init.d/elpis
           block: |
             #!/bin/sh
             hostapd -B /etc/hostapd/hostapd.conf
+        become: true
       - command: update-rc.d hostapd defaults
         become: true
       - command: reboot
