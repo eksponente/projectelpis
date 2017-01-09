@@ -1,20 +1,20 @@
 ---
-- hosts: all
+- hosts: localhost
   tasks:
       - shell: echo "labas"
       - name: Install hostapd
         apt:
           name: hostapd
           state: latest
-          become: true
+        become: true
       - lineinfile:
           dest: /etc/dhcpcd.conf
           regexp: 'denyinterfaces wlan0'
           line: 'denyinterfaces wlan0'
-          become: true
+        become: true
       - blockinfile:
           dest: /etc/network/interfaces
-          become: true
+        become: true
           block: |
             iface wlan0 inet static
                 address 10.10.0.1
@@ -22,7 +22,7 @@
       - service:
           name: dhcpcd
           state: restarted
-          become: true
+        become: true
       - command: ifdown wlan0
         become: true
       - command: ifup wlan0
@@ -36,8 +36,8 @@
           owner: root
           mode: 0555
       - blockinfile:
+        become: true
           dest: /etc/network/interfaces
-          become: true
           block: |
             interface=wlan0
             driver=nl80211
@@ -60,8 +60,8 @@
           owner: root
           mode: 0555
       - blockinfile:
+        become: true
           dest:  /etc/init.d/elpis
-          become: true
           block: |
             #!/bin/sh
             hostapd -B /etc/hostapd/hostapd.conf
