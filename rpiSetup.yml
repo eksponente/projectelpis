@@ -3,9 +3,7 @@
   tasks:
       - shell: echo "labas"
       - name: Install hostapd
-        apt:
-          name: hostapd
-          state: latest
+        apt: name=hostapd state=latest
         become: true
       - lineinfile:
           dest: /etc/dhcpcd.conf
@@ -13,12 +11,12 @@
           line: 'denyinterfaces wlan0'
         become: true
       - blockinfile:
-        become: true
           dest: /etc/network/interfaces
           block: |
             iface wlan0 inet static
                 address 10.10.0.1
                 netmask 255.255.255.0
+        become: true
       - service:
           name: dhcpcd
           state: restarted
@@ -36,7 +34,6 @@
           owner: root
           mode: 0555
       - blockinfile:
-        become: true
           dest: /etc/network/interfaces
           block: |
             interface=wlan0
@@ -51,6 +48,7 @@
             rsn_pairwise=CCMP
             auth_algs=1
             macaddr_acl=0
+        become: true
       - name: ensure file exists
         copy:
           content: ""
