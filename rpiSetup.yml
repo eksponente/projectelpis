@@ -12,7 +12,7 @@
         become: true
       - blockinfile:
           dest: /etc/network/interfaces
-          block: |
+          block: |4
             iface wlan0 inet static
                 address 10.10.0.1
                 netmask 255.255.255.0
@@ -34,7 +34,7 @@
           owner: root
           mode: 0555
       - blockinfile:
-          dest: /etc/network/interfaces
+          dest: /etc/hostapd/hostapd.conf
           block: |
             interface=wlan0
             driver=nl80211
