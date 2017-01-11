@@ -1,7 +1,6 @@
 ---
 - hosts: localhost
   tasks:
-      - shell: echo "labas"
       - name: Install hostapd
         apt: name=hostapd state=latest
         become: true
