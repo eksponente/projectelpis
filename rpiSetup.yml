@@ -12,6 +12,7 @@
         become: true
       - blockinfile:
           dest: /etc/network/interfaces
+          marker: ""
           block: |
             iface wlan0 inet static
                 address 10.10.0.1
@@ -35,6 +36,7 @@
           mode: 0555
       - blockinfile:
           dest: /etc/hostapd/hostapd.conf
+          marker: ""
           block: |
             interface=wlan0
             driver=nl80211
@@ -59,6 +61,7 @@
           mode: 0555
       - blockinfile:
           dest:  /etc/init.d/elpis
+          marker: ""
           block: |
             #!/bin/sh
             hostapd -B /etc/hostapd/hostapd.conf
