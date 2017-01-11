@@ -50,22 +50,17 @@
             auth_algs=1
             macaddr_acl=0
         become: true
-      - name: ensure file exists
-        copy:
-          content: ""
-          dest: /etc/init.d/elpis
-          force: no
-          group: sys
-          owner: root
-          mode: 0555
-      - blockinfile:
-          dest:  /etc/init.d/elpis
-          marker: ""
-          block: |
-            #!/bin/sh
-            hostapd -B /etc/hostapd/hostapd.conf
+      - lineinfile:
+            dest: /etc/default/hostapd
+            regexp: 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
+            line: 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
         become: true
-      - command: update-rc.d hostapd defaults
+      - lineinfile:
+            dest: /etc/init.d/hostpad
+            regexp: 'DAEMON_CONF='
+            line: 'DAEMON_CONF=/etc/hostapd/hostapd.conf'
         become: true
-      - command: reboot
+      - command: update-rc.d /etc/init.d/hostapd defaults
+        become: true
+      - command: update-rc.d /etc/init.d/hostapd enable
         become: true
