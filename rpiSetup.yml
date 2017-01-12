@@ -9,13 +9,9 @@
           regexp: 'denyinterfaces wlan0'
           line: 'denyinterfaces wlan0'
         become: true
-      - blockinfile:
+      - copy:
+          src: interfaces
           dest: /etc/network/interfaces
-          marker: ""
-          block: |
-            iface wlan0 inet static
-                address 10.10.0.1
-                netmask 255.255.255.0
         become: true
       - service:
           name: dhcpcd

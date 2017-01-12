@@ -6,3 +6,4 @@ sudo apt-get install -y libssl-dev
 sudo apt-get install -y python-dev
 sudo pip install ansible
 sudo pip install markupsafe
+sudo ansible-playbook -i "localhost," -c local rpiSetup.yml
