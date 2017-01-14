@@ -1,0 +1,11 @@
+<html>
+<body>
+    <form id="itemForm" method="post">
+        <input name="id" value="ID"/>
+        <input name="title" value="Title"/>
+        <input type="submit" value="Submit"/>
+    </form>
+    <textarea name="body" form="itemForm" cols="30" rows="10">Content</textarea>
+    {{ message }}
+</body>
+</html>

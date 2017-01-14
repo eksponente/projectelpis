@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+{{ id }} <br/>
+{{ title }} <br/>
+{{ body }} <br/>
+</body>
+</html>
