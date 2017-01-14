@@ -7,10 +7,6 @@
     <groupId>com.elpis</groupId>
     <artifactId>projectelpis</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <configuration>
-        <source>1.8</source>
-        <target>1.8</target>
-    </configuration>
 
     <dependencies>
         <dependency>
