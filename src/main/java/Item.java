@@ -6,7 +6,6 @@ import java.util.List;
 public class Item extends DatabaseTable{
     public String description; //size=10000
     public String title; //size=255
-    public int id; //primary key
     public String language;
     public String category;
     public boolean offline;
@@ -38,17 +37,20 @@ public class Item extends DatabaseTable{
         stat.setString(2, language);
         ResultSet rs = stat.executeQuery();
         rs.next();
-        return new Item(Integer.parseInt(rs.getString(1)), rs.getString("DESCRIPTION"), rs.getString("TITLE"), rs.getString("LANG"), rs.getString("CATEGORY"), Boolean.parseBoolean(rs.getString("OFFLINE")));
+        return new Item(rs.getInt("ID"), rs.getString("DESCRIPTION"), rs.getString("TITLE"), rs.getString("LANG"), rs.getString("CATEGORY"), rs.getBoolean("OFFLINE"));
     }
 
     public static List<Item> fetchList(int howMany, int page, String language) throws SQLException {
         List<Item> retval = new ArrayList<Item>();
         Connection conn = getConnection();
-        Statement stat = conn.createStatement();
-        ResultSet rs = stat.executeQuery("SELECT * FROM ITEMS LEFT JOIN ITEMS_T ON ITEMS.ID=ITEMS_T.ITEM_ID WHERE ITEMS_T.LANG=\"" + language + "\" LIMIT " + howMany + " OFFSET " + howMany*page + ";");
+        PreparedStatement stat = conn.prepareStatement("SELECT * FROM ITEMS LEFT JOIN ITEMS_T ON ITEMS.ID=ITEMS_T.ITEM_ID WHERE ITEMS_T.LANG=? LIMIT ? OFFSET ?;");
+        stat.setString(1, language);
+        stat.setInt(2, howMany);
+        stat.setInt(3, (page-1)*howMany);
+        ResultSet rs = stat.executeQuery();
         rs.next();
         while(!rs.isAfterLast()){
-            retval.add(new Item(rs.getInt(1), rs.getString("DESCRIPTION"), rs.getString("TITLE"), rs.getString("LANG"), rs.getString("CATEGORY"), rs.getBoolean("OFFLINE")));
+            retval.add(new Item(rs.getInt("ID"), rs.getString("DESCRIPTION"), rs.getString("TITLE"), rs.getString("LANG"), rs.getString("CATEGORY"), rs.getBoolean("OFFLINE")));
             rs.next();
         }
         closeConnection(conn);

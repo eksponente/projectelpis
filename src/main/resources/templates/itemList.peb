@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+{% for item in items %}
+    {{ item.id }} <br/>
+    {{ item.title }} <br/>
+    {{ item.description }} <br/>
+    <br/>
+    <br/>
+{% endfor %}
+</body>
+</html>

@@ -5,18 +5,21 @@
 import ro.pippo.core.Application;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ElpisApplication extends Application{
     @Override
     protected void onInit(){
         GET("/", routeContext -> {
-//            try {
-//
-//            } catch (SQLException e) {
-//                throw new RuntimeException("Problem with SQL.");
-//            }
-            routeContext.send("Working");
+            List<Item> items;
+            try {
+                items = Item.fetchList(10, 0, "en" );
+            } catch (SQLException e) {
+                throw new RuntimeException("Problem with SQL: " + e.toString());
+            }
+            routeContext.setLocal("items", items.toArray());
+            routeContext.render("itemList");
         });
         GET("/newItem", routeContext -> {
             routeContext.render("itemForm");
@@ -51,7 +54,7 @@ public class ElpisApplication extends Application{
             try {
                 it = Item.fetchUniqueItem(id, "en");
             } catch (SQLException e) {
-                throw new RuntimeException("Problem with SQL.");
+                throw new RuntimeException("Problem with SQL: " + e.toString());
             }
             routeContext.setLocal("title", it.title);
             routeContext.setLocal("body", it.description);

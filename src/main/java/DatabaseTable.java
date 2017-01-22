@@ -4,7 +4,7 @@ import java.sql.*;
  * Created by rugile on 12/01/17.
  */
 public abstract class DatabaseTable {
-    private int id;
+    public int id;
 
     public DatabaseTable(int id){
         this.id = id;
