@@ -13,7 +13,7 @@ public abstract class DatabaseTable {
 
     protected static Connection getConnection() throws SQLException {
         //TODO: need to set the passwords automatically using ansible
-        return DriverManager.getConnection("jdbc:h2:tcp://localhost:9092/./elpis","sa","s1ple");
+        return DriverManager.getConnection("jdbc:h2:tcp://localhost:9092/./elpis","sa","");
     }
     protected static void closeConnection(Connection conn) throws SQLException {
         conn.close();

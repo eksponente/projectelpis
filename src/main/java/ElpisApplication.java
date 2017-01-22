@@ -5,7 +5,6 @@
 import ro.pippo.core.Application;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ElpisApplication extends Application{
