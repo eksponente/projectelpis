@@ -1,11 +1,12 @@
 <html>
 <body>
     <form id="itemForm" method="post">
-        <input name="id" value="ID"/>
-        <input name="title" value="Title"/>
-        <input type="submit" value="Submit"/>
+        <input name="title" value="Title"/><br/>
+        <input name="category" value="Category"/><br/>
+
     </form>
-    <textarea name="body" form="itemForm" cols="30" rows="10">Content</textarea>
+    <textarea name="description" form="itemForm" cols="30" rows="10">Description</textarea><br/>
+    <input type="submit" value="Submit" form="itemForm"/><br/>
     {{ message }}
 </body>
 </html>
