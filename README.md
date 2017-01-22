@@ -5,7 +5,7 @@ The objective is to build a website which is meant to be accessed over Raspberry
 
 Web application is built using Java's lightweight framework Pippo, the database engine used is H2 and the setup automation is achieved using Ansible.
  
-This is a part of Project Elpis (http://www.elpismeanshope.com/).
+This is a part of Project Elpis (http://www.elpismeanshope.com/). The webapp will be used where people do not have internet access and could benefit greatly from content such as educational, legal information.
 
 #Raspberry Pi setup
 
@@ -35,4 +35,33 @@ You can then access your application at http://localhost:8338/.
 
 Contributions to the project are more than welcome. Feel free to fork the project and create pull requests. Take a look at the issues raised too and raise some of your own if you see the need for it.
  
-You can get in touch with me if you would like to over email: rugilena@gmail.com 
+ See some requirements below for better project understanding.
+ 
+You can get in touch with me if you would like to over email: rugilena@gmail.com
+ 
+#Project requirements
+
+The idea of this is create a way for people in need to access some content offline (could be pdf's, apps, or just plain text). 
+
+The requirements for the webapp so far:
+* Needs to contain a page with content items displayed (Item.java). 
+It should be possible to select one of few categories (Health, Education, etc.) to view items in that category only.
+Each content item will have a title, description and/or file(s) (not necessarily all of them).
+Should also be paged.
+* Needs to contain a page to add new items. This should be a form to fill in. Also, the choice to upload a file. Should be password protected.
+* Needs to contain a way to edit existing items.
+* Needs to be internationalised.
+* The webserver (Jetty) also needs to be setup for proper use (security measures etc.)
+
+The requirements for the setup:
+* Has to be fairly reliable, as we will not have any access to it in case something crashes. Should restart frequently.
+* Should initially pull content from a central unit (AWS). The idea is that a webapp will be deployed in AWS for people to upload content and with every new Raspberry setup the content should be pulled from there.
+* Need to update the setup scripts to deploy the webapp and make it accessible over the WAP. 
+
+
+
+
+
+
+
+
