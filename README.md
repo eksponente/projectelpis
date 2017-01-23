@@ -59,9 +59,3 @@ The requirements for the setup:
 * Need to update the setup scripts to deploy the webapp and make it accessible over the WAP. 
 
 
-
-
-
-
-
-

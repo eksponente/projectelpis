@@ -5,6 +5,9 @@
     {{ item.id }} <br/>
     {{ item.title }} <br/>
     {{ item.description }} <br/>
+    {% for link in item.links %}
+        {{ link.url }} <br/>
+    {% endfor %}
     <br/>
     <br/>
 {% endfor %}

@@ -3,6 +3,8 @@
     <form id="itemForm" method="post">
         <input name="title" value="Title"/><br/>
         <input name="category" value="Category"/><br/>
+        <input name="link1" value="Link1"/><br/>
+        <input name="link2" value="Link2"/><br/>
 
     </form>
     <textarea name="description" form="itemForm" cols="30" rows="10">Description</textarea><br/>

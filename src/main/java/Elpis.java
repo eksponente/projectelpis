@@ -17,6 +17,7 @@ public class Elpis {
         } catch (org.h2.jdbc.JdbcSQLException e){}
         startDB();
         Item.createTable(); //create items table if does not already exist
+        Link.createTable();
         Pippo pippo = new Pippo(new ElpisApplication());
         pippo.start();
     }

@@ -30,6 +30,8 @@ public class ElpisApplication extends Application{
             String title = routeContext.getParameter("title").toString();
             String category = routeContext.getParameter("category").toString();
             String description = routeContext.getParameter("description").toString();
+            String url1 = routeContext.getParameter("link1").toString();
+            String url2 = routeContext.getParameter("link2").toString();
 
             titles.add(title);
             descriptions.add(description);
@@ -37,6 +39,8 @@ public class ElpisApplication extends Application{
             int id;
             try {
                 id = Item.createNewItem(titles, descriptions, langs, category, true);
+                Link.createNewLink(id, url1, true, "");
+                Link.createNewLink(id, url2, true, "");
             } catch (SQLException e) {
                 throw new RuntimeException("Problem with SQL: " + e.toString());
             }

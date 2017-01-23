@@ -9,7 +9,7 @@ public class Item extends DatabaseTable{
     public String language;
     public String category;
     public boolean offline;
-
+    public List<Link> links;
 
     public Item(int id, String d, String t, String l, String c, boolean offline){
         super(id);
@@ -50,7 +50,10 @@ public class Item extends DatabaseTable{
         ResultSet rs = stat.executeQuery();
         rs.next();
         while(!rs.isAfterLast()){
-            retval.add(new Item(rs.getInt("ID"), rs.getString("DESCRIPTION"), rs.getString("TITLE"), rs.getString("LANG"), rs.getString("CATEGORY"), rs.getBoolean("OFFLINE")));
+            Item newItem = new Item(rs.getInt("ID"), rs.getString("DESCRIPTION"), rs.getString("TITLE"), rs.getString("LANG"), rs.getString("CATEGORY"), rs.getBoolean("OFFLINE"));
+            newItem.links = Link.selectLinksForItem(newItem, conn);
+            retval.add(newItem);
+
             rs.next();
         }
         closeConnection(conn);
@@ -70,21 +73,18 @@ public class Item extends DatabaseTable{
         generatedKeys.next();
         int id = generatedKeys.getInt(1);
         for(int i = 0; i < language.size(); i++){
-            addNewLanguage(id, language.get(i), title.get(i), description.get(i));
+            addNewLanguage(id, language.get(i), title.get(i), description.get(i), conn);
         }
         conn.close();
         return id;
     }
-    public static boolean addNewLanguage(int item_id, String language, String title, String description) throws SQLException {
-        Connection conn = getConnection();
+    private static boolean addNewLanguage(int item_id, String language, String title, String description, Connection conn) throws SQLException {
         PreparedStatement stat = conn.prepareStatement("INSERT INTO ITEMS_T VALUES(?, ?, ?, ?);");
         stat.setInt(1,  item_id);
         stat.setString(2, language);
         stat.setString(3, title);
         stat.setString(4, description);
         boolean retval = stat.execute();
-        closeConnection(conn);
         return retval;
     }
-
-    }
+}
