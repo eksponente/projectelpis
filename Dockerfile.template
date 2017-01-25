@@ -1,0 +1,13 @@
+FROM resin/%%RESIN_MACHINE_NAME%%-alpine
+
+COPY . /usr/src
+
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+  && apk add --update openjdk8-jre-base \
+  && apk add --update -t build-deps \
+       wget ca-certificates unzip maven openjdk8 \
+  && cd /usr/src && mvn package \
+  && apk del build-deps
+
+ENTRYPOINT [ "java", "-jar", "/usr/src/target/projectelpis-1.0-SNAPSHOT.jar" ]
+EXPOSE 8338

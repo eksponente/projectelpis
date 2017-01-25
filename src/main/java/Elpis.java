@@ -19,6 +19,7 @@ public class Elpis {
         Item.createTable(); //create items table if does not already exist
         Link.createTable();
         Pippo pippo = new Pippo(new ElpisApplication());
+        pippo.getServer().getSettings().host("0.0.0.0");
         pippo.start();
     }
     private static void startDB() throws SQLException {
