@@ -38,7 +38,17 @@ Contributions to the project are more than welcome. Feel free to fork the projec
  See some requirements below for better project understanding.
  
 You can get in touch with me if you would like to over email: rugilena@gmail.com
- 
+
+#Docker
+
+The project contains a `Dockerfile.template` which can be used to deploy this
+project via resin.io. To build and test the image locally, run `make`. This will
+create a docker image tagged `elpis`, which can be started by running:
+
+```
+docker run -p 8338:8338 elpsis
+```
+
 #Project requirements
 
 The idea of this is create a way for people in need to access some content offline (could be pdf's, apps, or just plain text). 
