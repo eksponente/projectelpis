@@ -1,11 +1,11 @@
 <html>
 <body>
-    <form id="itemForm" method="post">
+    <form id="itemForm" method="post" enctype="multipart/form-data">
         <input name="title" value="Title"/><br/>
         <input name="category" value="Category"/><br/>
         <input name="link1" value="Link1"/><br/>
         <input name="link2" value="Link2"/><br/>
-
+        <input type="file" name="file"/><br/>
     </form>
     <textarea name="description" form="itemForm" cols="30" rows="10">Description</textarea><br/>
     <input type="submit" value="Submit" form="itemForm"/><br/>

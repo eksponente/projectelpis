@@ -3,13 +3,18 @@
  */
 
 import ro.pippo.core.Application;
+import ro.pippo.core.FileItem;
+
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 public class ElpisApplication extends Application{
     @Override
     protected void onInit(){
+        setUploadLocation("upload");
         GET("/", routeContext -> {
             List<Item> items;
             try {
@@ -32,6 +37,13 @@ public class ElpisApplication extends Application{
             String description = routeContext.getParameter("description").toString();
             String url1 = routeContext.getParameter("link1").toString();
             String url2 = routeContext.getParameter("link2").toString();
+            FileItem file = routeContext.getRequest().getFile("file");
+            File uploadedFile = new File("upload/" + file.getSubmittedFileName());
+            try {
+                file.write(uploadedFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             titles.add(title);
             descriptions.add(description);
